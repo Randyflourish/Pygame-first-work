@@ -531,43 +531,53 @@ def enter_battle():
 
 # S1：建置怪物
 
-# 仍須調整
 def set_enemt_type(n):
     variable.enemy = []
     tmp = 0
-    while (tmp < n and len(variable.enemy) < 3):
+    times = 0
+    while (tmp < n and times < 3):
         tmptype = random.randint(1, 100)
         if n-tmp >= 12 and variable.floor >= 7:
             if tmptype <= 60:
                 variable.enemy.append(copy.copy(OrichalcumGolem))
                 tmp += OrichalcumGolem.cost
+                sprite.battle_enemy_list[times].type_img = Golem_img
             else:
                 variable.enemy.append(copy.copy(Orcs))
                 tmp += Orcs.cost
+                sprite.battle_enemy_list[times].type_img = Orcs_img
         elif n-tmp >= 7 and variable.floor >= 5:
             if tmptype <= 60:
                 variable.enemy.append(copy.copy(Orcs))
                 tmp += Orcs.cost
+                sprite.battle_enemy_list[times].type_img = Orcs_img
             else:
                 variable.enemy.append(copy.copy(CultPriest))
                 tmp += CultPriest.cost
+                sprite.battle_enemy_list[times].type_img = CultPriest_img
         elif n-tmp >= 3 and variable.floor >= 3:
             if tmptype <= 60:
                 variable.enemy.append(copy.copy(CultPriest))
                 tmp += CultPriest.cost
+                sprite.battle_enemy_list[times].type_img = CultPriest_img
             else:
                 variable.enemy.append(copy.copy(Goblin))
                 tmp += Goblin.cost
+                sprite.battle_enemy_list[times].type_img = Goblin_img
         elif n-tmp >= 2 and variable.floor >= 2:
             if tmptype <= 60:
                 variable.enemy.append(copy.copy(Goblin))
                 tmp += Goblin.cost
+                sprite.battle_enemy_list[times].type_img = Goblin_img
             else:
                 variable.enemy.append(copy.copy(Slime))
                 tmp += Slime.cost
+                sprite.battle_enemy_list[times].type_img = Slime_img
         else:
             variable.enemy.append(copy.copy(Slime))
             tmp += Slime.cost
+            sprite.battle_enemy_list[times].type_img = Slime_img
+        times += 1
 
 # S2：回合開始
 
@@ -768,10 +778,33 @@ c_exp_potion_img = pygame.image.load(os.path.join(
     "魔塔-回合制RPG", "image", "chest", "c_exp_potion.png")).convert_alpha()
 chestgain_img = pygame.image.load(os.path.join(
     "魔塔-回合制RPG", "image", "chest", "gain.png")).convert_alpha()
-slime_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "Slime.png")).convert_alpha()
+Slime_l_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Slime_a.png")).convert_alpha()
+Slime_s_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Slime_b.png")).convert_alpha()
+Slime_img = [Slime_l_img, Slime_s_img]
+Goblin_l_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Goblin_a.png")).convert_alpha()
+Goblin_s_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Goblin_b.png")).convert_alpha()
+Goblin_img = [Goblin_l_img, Goblin_s_img]
+CultPriest_l_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "CultPriest_a.png")).convert_alpha()
+CultPriest_s_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "CultPriest_b.png")).convert_alpha()
+CultPriest_img = [CultPriest_l_img, CultPriest_s_img]
+Orcs_l_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Orcs_a.png")).convert_alpha()
+Orcs_s_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Orcs_b.png")).convert_alpha()
+Orcs_img = [Orcs_l_img, Orcs_s_img]
+Golem_l_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Golem_a.png")).convert_alpha()
+Golem_s_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "enemy", "Golem_b.png")).convert_alpha()
+Golem_img = [Golem_l_img, Golem_s_img]
 deadslime_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "Slimedead.png")).convert_alpha()
+    "魔塔-回合制RPG", "image", "enemy", "Slimedead.png")).convert_alpha()
 statue_img = pygame.image.load(os.path.join(
     "魔塔-回合制RPG", "image", "statue.png")).convert_alpha()
 bigstatue_img = pygame.image.load(os.path.join(
@@ -2666,25 +2699,25 @@ class tow_room_img(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((300, 300), pygame.SRCALPHA)
-        self.imageS = portal_img
+        self.imageS = portal_img.copy()
         self.imageSR = self.imageS.get_rect()
-        self.imageB = chest_img
+        self.imageB = chest_img.copy()
         self.imageBR = self.imageB.get_rect()
-        self.imageB2 = openedchest_img
+        self.imageB2 = openedchest_img.copy()
         self.imageB2R = self.imageB.get_rect()
-        self.imageM = slime_img
+        self.imageM = Slime_l_img.copy()
         self.imageMR = self.imageM.get_rect()
-        self.imageM2 = deadslime_img
+        self.imageM2 = deadslime_img.copy()
         self.imageM2R = self.imageM2.get_rect()
-        self.imageE = NPC_img
+        self.imageE = NPC_img.copy()
         self.imageER = self.imageE.get_rect()
-        self.imageG = statue_img
+        self.imageG = statue_img.copy()
         self.imageGR = self.imageG.get_rect()
-        self.imageG2 = statue_2_img
+        self.imageG2 = statue_2_img.copy()
         self.imageG2R = self.imageG2.get_rect()
-        self.imageD = tomb_img
+        self.imageD = tomb_img.copy()
         self.imageDR = self.imageD.get_rect()
-        self.imageP = knight_img
+        self.imageP = knight_img.copy()
         self.imagePR = self.imageP.get_rect()
         self.rect = self.image.get_rect()
         self.rect.center = (650, 400)
@@ -3080,8 +3113,13 @@ class bat_ene(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.teamnum = teamnum
         self.rect.topleft = eneloc[self.teamnum]
+        self.type_img = None
 
     def update(self):
+        try:
+            self.image = self.type_img[1].copy()
+        except:
+            pass
         if self.rect.collidepoint(mouse_location) and mouse_one_press(0):
             if not flag.attack_choose:
                 sprite.act_information.act = self.teamnum+3
@@ -3107,17 +3145,24 @@ class bat_ene(pygame.sprite.Sprite):
 class bat_big_img(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.surface.Surface((250, 400), pygame.SRCALPHA)
+        self.image = pygame.surface.Surface((200, 200), pygame.SRCALPHA)
         self.image.fill(AMBER)
         self.rect = self.image.get_rect()
-        self.rect.topleft = (0, 400)
+        self.rect.topleft = (0, 600)
 
     def update(self):
         if sprite.act_information.act == -1:
             self.rect.top = 800
-
-    def h_update(self, pic):
-        self.image = pic.copy()
+        elif sprite.act_information.act <= 2:
+            self.image = partner_l_img[variable.usecha[sprite.act_information.act]].copy(
+            )
+            self.rect = self.image.get_rect()
+            self.rect.topleft = (0, 600)
+        else:
+            self.image = sprite.battle_enemy_list[sprite.act_information.act -
+                                                  3].type_img[0].copy()
+            self.rect = self.image.get_rect()
+            self.rect.topleft = (0, 600)
 
 
 # 戰鬥行動與資訊欄
@@ -3141,26 +3186,26 @@ class a_inf(pygame.sprite.Sprite):
         self.act = 0
         self.HPimg_bottom = HPbar_img.copy()
         self.HPimg_bottom_rect = self.HPimg_bottom.get_rect()
-        self.HPimg_bottom_rect.topleft = (477, 12)  # 邊框3像素
+        self.HPimg_bottom_rect.topleft = (427, 12)  # 邊框3像素
         self.HPimg_top = pygame.surface.Surface((400, 30))
         self.norbot = normalATK_botton_img.copy()
         self.norbotrect = self.norbot.get_rect()
-        self.norbotrect.topleft = (450, 60)
+        self.norbotrect.topleft = (400, 60)
         self.norbotmask = pygame.mask.from_surface(self.norbot)
         self.norbotmrect = self.norbotmask.get_rect()
         self.skibot = skillATK_botton_img.copy()
         self.skibotrect = self.skibot.get_rect()
-        self.skibotrect.topleft = (600, 60)
+        self.skibotrect.topleft = (560, 60)
         self.skibotmask = pygame.mask.from_surface(self.skibot)
         self.skibotmrect = self.skibotmask.get_rect()
         self.ultbot = ultraATK_botton_img.copy()
         self.ultbotrect = self.ultbot.get_rect()
-        self.ultbotrect.topleft = (750, 60)
+        self.ultbotrect.topleft = (720, 60)
         self.ultbotmask = pygame.mask.from_surface(self.ultbot)
         self.ultbotmrect = self.ultbotmask.get_rect()
         self.healbot = healATK_botton_img.copy()
         self.healbotrect = self.healbot.get_rect()
-        self.healbotrect.topleft = (900, 60)
+        self.healbotrect.topleft = (880, 60)
         self.healbotmask = pygame.mask.from_surface(self.healbot)
         self.healbotmrect = self.healbotmask.get_rect()
         self.exebot = execute_botton_img.copy()
@@ -3170,7 +3215,7 @@ class a_inf(pygame.sprite.Sprite):
         self.exebotmrect = self.exebotmask.get_rect()
         self.detbot = detail_botton_img.copy()
         self.detbotrect = self.detbot.get_rect()
-        self.detbotrect.topleft = (280, 60)
+        self.detbotrect.topleft = (230, 60)
         self.detbotmask = pygame.mask.from_surface(self.detbot)
         self.detbotmrect = self.detbotmask.get_rect()
         self.ring = botton_ring_img.copy()
@@ -3243,10 +3288,10 @@ class a_inf(pygame.sprite.Sprite):
                 self.image.blit(self.ULTCDing, self.ULTCDingrect)
                 self.namefont = font_27_40_B.render(
                     self.perform.name, False, WHITE)
-                if self.namefont.get_height() >= 190:
+                if self.namefont.get_width() >= 240:
                     self.namefont = font_27_30_B.render(
                         self.perform.name, False, WHITE)
-                self.image.blit(self.namefont, (280, 0))
+                self.image.blit(self.namefont, (230, 0))
                 if (self.norbotmrect.collidepoint(mouse_location) and mouse_one_press(0)) or keyboard_one_press(pygame.K_a):
                     variable.myATKtype[self.act] = 0
                     if self.w.code != (4, 1):
@@ -3279,7 +3324,7 @@ class a_inf(pygame.sprite.Sprite):
                     flag.heal_cha = True
                     flag.sprite_need_change = True
                 elif (self.exebotmrect.collidepoint(mouse_location) and mouse_one_press(0)) or keyboard_one_press(pygame.K_RETURN):
-                    for i in range(len(variable.myATKtype)):
+                    for i in range(len(variable.usecha)):
                         if variable.myATKtype[i] == -1 and variable.character_list[variable.usecha[i]].dizz == 0:
                             sprite.battle_font.display = True
                             sprite.battle_font.situation = 6
@@ -3302,10 +3347,10 @@ class a_inf(pygame.sprite.Sprite):
                 self.perform = variable.enemy[self.act-3]
                 self.namefont = font_27_40_B.render(
                     self.perform.type, False, WHITE)
-                if self.namefont.get_height() >= 190:
+                if self.namefont.get_width() >= 240:
                     self.namefont = font_27_30_B.render(
                         self.perform.type, False, WHITE)
-                self.image.blit(self.namefont, (280, 0))
+                self.image.blit(self.namefont, (230, 0))
             self.HPimg_top = pygame.surface.Surface(
                 (self.perform.HPpercentage(400), 30))
             self.HPimg_top.fill(HP_GREEN)
@@ -3313,7 +3358,7 @@ class a_inf(pygame.sprite.Sprite):
             self.image.blit(self.HPimg_bottom, self.HPimg_bottom_rect)
             self.HPfont = font_m_55.render(
                 str(self.perform.nHP)+'/'+str(self.perform.HP[self.perform.level]), False, WHITE)
-            self.image.blit(self.HPfont, (900, 14))
+            self.image.blit(self.HPfont, (850, 14))
         else:
             if not self.havecalculate and not self.death_check():
                 if self.act <= 2:  # 我方
