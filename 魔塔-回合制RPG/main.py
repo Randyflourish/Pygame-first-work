@@ -82,6 +82,7 @@ class flags(object):
         self.in_gotcha = False
         self.in_wp_intro = False
         self.partner_font = False
+        self.partner_up = False
 
 
 flag = flags()
@@ -370,7 +371,7 @@ class character(object):
 
 
 # 0
-Mainc = character("竹君", ATK=[0, 4, 9, 16, 26, 40], DEF=[0, 1, 3, 7, 11, 17], HP=[
+Mainc = character("竹君", ATK=[0, 5, 9, 16, 26, 40], DEF=[0, 1, 3, 7, 11, 17], HP=[
     0, 30, 45, 70, 100, 140], SKCD=5, UPSKCD=4, ULTCD=20,  ATKtype=1, workstr='多功能')
 variable.character_list.append(Mainc)
 Mainc.LVup()
@@ -936,6 +937,10 @@ partner_l_img = [partner_0_l_img, partner_1_l_img,
                  partner_2_l_img, partner_3_l_img, partner_4_l_img]
 p_equip_img = pygame.image.load(os.path.join(
     "魔塔-回合制RPG", "image", "partner", "equip_bot.png")).convert()
+p_goup_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "partner", "go_up.png")).convert_alpha()
+p_plus_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "partner", "up_plus.png")).convert_alpha()
 p_HP_img = pygame.image.load(os.path.join(
     "魔塔-回合制RPG", "image", "partner", "HP_bot.png")).convert_alpha()
 p_recover_font_img = pygame.image.load(os.path.join(
@@ -1037,7 +1042,7 @@ bag_mgs_font_3 = font_27_40_B.render("自動使用", False, GRAY)
 wp_font_1 = font_27_50_B.render("武器列表", False, BLACK)
 wp_font_1_h = wp_font_1.get_height()
 wp_font_1_w = wp_font_1.get_width()
-wp_font_2 = font_27_40_B.render("點擊圖示以查看詳情", False, GRAY)
+wp_font_2 = font_27_40_B.render("點擊圖示以查看詳情（主角等級與武器階級相關）", False, GRAY)
 wp_font_2_w = wp_font_2.get_width()
 pn_font_1 = font_27_50_B.render("角色列表", False, BLACK)
 pn_font_1_h = pn_font_1.get_height()
@@ -1069,7 +1074,15 @@ monster_font_1_1_w = monster_font_1_1.get_width()
 monster_font_1_2 = font_27_50_B.render("戰鬥開始", False, GRAY)
 monster_font_1_2_w = monster_font_1_2.get_width()
 monster_font_2 = font_27_40.render("怪物的屍體", False, GRAY)
-
+NPC_font_1 = font_27_40_B.render("奇怪的人", False, GRAY)
+NPC_font_1_h = NPC_font_1.get_height()
+NPC_font_2 = font_27_30.render("系統尚未開放", False, GRAY)
+knight_font_1 = font_27_40_B.render("身穿鎧甲的物體", False, GRAY)
+knight_font_1_h = knight_font_1.get_height()
+knight_font_2 = font_27_30.render("系統尚未開放", False, GRAY)
+tomb_font_1 = font_27_40_B.render("詭異的墓碑", False, GRAY)
+tomb_font_1_h = tomb_font_1.get_height()
+tomb_font_2 = font_27_30.render("系統尚未開放", False, GRAY)
 
 # userevent，使用者事件自定義
 """
@@ -1852,18 +1865,23 @@ class fn_pn(pygame.sprite.Sprite):
                     self.h_update()
                     break
             else:
-                if self.pnd_HPrec_maskrect.collidepoint(mouse_location):
-                    flag.partner_font = True
+                if self.perform.level != 0 and not flag.in_battle:
+                    if self.pnd_HPrec_maskrect.collidepoint(mouse_location):
+                        flag.partner_font = True
+                        flag.sprite_need_change = True
+                        sprite.partner_font.situation = 0
+                    elif self.pnd_EXP_maskrect.collidepoint(mouse_location):
+                        flag.partner_font = True
+                        flag.sprite_need_change = True
+                        sprite.partner_font.situation = 1
+                    elif self.pnd_star_maskrect.collidepoint(mouse_location):
+                        flag.partner_font = True
+                        flag.sprite_need_change = True
+                        sprite.partner_font.situation = 2
+                if self.pnd_equiprect.collidepoint(mouse_location):
+                    flag.partner_up = True
                     flag.sprite_need_change = True
-                    sprite.partner_font.situation = 0
-                elif self.pnd_EXP_maskrect.collidepoint(mouse_location):
-                    flag.partner_font = True
-                    flag.sprite_need_change = True
-                    sprite.partner_font.situation = 1
-                elif self.pnd_star_maskrect.collidepoint(mouse_location):
-                    flag.partner_font = True
-                    flag.sprite_need_change = True
-                    sprite.partner_font.situation = 2
+                    sprite.partner_up.h_update()
 
     def h_update(self):
         self.image = pygame.surface.Surface((1500, 800))
@@ -1891,8 +1909,13 @@ class fn_pn(pygame.sprite.Sprite):
         self.pndetail.blit(self.pnd_work, self.pnd_workrect)
         self.pnd_equipbot = p_equip_img.copy()
         self.pnd_equiprect = self.pnd_equipbot.get_rect()
-        self.pnd_equiprect.topleft = (45, self.pnd_workrect.bottom+10)
+        if self.perform.level != 0 and not flag.in_battle and self.act != 0:
+            self.pnd_equiprect.topleft = (45, self.pnd_workrect.bottom+10)
+        else:
+            self.pnd_equiprect.topleft = (45, 801)
         self.pndetail.blit(self.pnd_equipbot, self.pnd_equiprect)
+        self.pnd_equiprect.topleft = (self.pnd_equiprect.x+400,
+                                      self.pnd_equiprect.y+150)
         self.pnd_img = partner_l_img[self.act].copy()
         self.pnd_rect = self.pnd_img.get_rect()
         self.pnd_rect.midtop = (450, 100)
@@ -1954,15 +1977,16 @@ class fn_pn(pygame.sprite.Sprite):
         self.pnd_HPrec = p_HP_img.copy()
         self.pnd_HPrecrect = self.pnd_HPrec.get_rect()
         self.pnd_HPrecrect.topleft = (960, 20)
-        self.pndetail.blit(self.pnd_HPrec, self.pnd_HPrecrect)
         self.pnd_EXP = p_EXP_img.copy()
         self.pnd_EXPrect = self.pnd_EXP.get_rect()
         self.pnd_EXPrect.topleft = (960, 120)
-        self.pndetail.blit(self.pnd_EXP, self.pnd_EXPrect)
         self.pnd_star = p_star_img.copy()
         self.pnd_starrect = self.pnd_star.get_rect()
         self.pnd_starrect.topleft = (960, 220)
-        self.pndetail.blit(self.pnd_star, self.pnd_starrect)
+        if self.perform.level != 0 and not flag.in_battle:
+            self.pndetail.blit(self.pnd_HPrec, self.pnd_HPrecrect)
+            self.pndetail.blit(self.pnd_EXP, self.pnd_EXPrect)
+            self.pndetail.blit(self.pnd_star, self.pnd_starrect)
         self.image.blit(self.pndetail, self.pndetailrect)
 
     def skfont(self):
@@ -2006,6 +2030,8 @@ class fn_pn(pygame.sprite.Sprite):
         if ml[0] > arr[0] and ml[0] < arr[0]+150 and ml[1] > arr[1]+150 and ml[1] < arr[1]+350:
             return True
         return False
+
+# 夥伴升級
 
 
 class p_font(pygame.sprite.Sprite):
@@ -2054,6 +2080,67 @@ class p_font(pygame.sprite.Sprite):
         elif self.nrect.collidepoint(mouse_location) and mouse_one_press(0):
             flag.partner_font = False
             flag.sprite_need_change = True
+
+# 夥伴上陣
+
+
+class p_up(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.surface.Surface((1500, 800), pygame.SRCALPHA)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (0, 0)
+        self.img = p_goup_img.copy()
+        self.imgrect = self.img.get_rect()
+        self.imgrect.center = (750, 400)
+        self.plus = p_plus_img.copy()
+        self.back = cancel_img.copy()
+        self.backrect = self.back.get_rect()
+        self.backrect.bottomleft = (1150, 210)
+        self.img.blit(self.back, self.backrect)
+        self.image.blit(self.img, self.imgrect)
+        self.loc = [(0, 0), (310, 90), (550, 90)]
+
+    def update(self):
+        if mouse_one_press(0):
+            if mouse_location[1] <= 540 and mouse_location[1] >= 250:
+                if mouse_location[0] >= 650 and mouse_location[0] <= 870:
+                    try:
+                        if variable.usecha[2] == sprite.partner_bag.act:
+                            variable.usecha[1], variable.usecha[2] = variable.usecha[2], variable.usecha[1]
+                        else:
+                            variable.usecha[1] = sprite.partner_bag.act
+                    except:
+                        variable.usecha.append(sprite.partner_bag.act)
+                    self.h_update()
+                elif mouse_location[0] >= 890 and mouse_location[0] <= 1110:
+                    try:
+                        if variable.usecha[1] == sprite.partner_bag.act:
+                            variable.usecha[1], variable.usecha[2] = variable.usecha[2], variable.usecha[1]
+                        else:
+                            variable.usecha[2] = sprite.partner_bag.act
+                    except:
+                        if variable.usecha[1] == sprite.partner_bag.act:
+                            pass
+                        else:
+                            variable.usecha.append(sprite.partner_bag.act)
+                    self.h_update()
+            elif self.backrect.collidepoint(mouse_location):
+                flag.sprite_need_change = True
+                flag.partner_up = False
+
+    def h_update(self):
+        self.image = pygame.surface.Surface((1500, 800), pygame.SRCALPHA)
+        self.img = p_goup_img.copy()
+        self.image.blit(self.back, self.backrect)
+        for i in range(1, 3):
+            if len(variable.usecha) > i:
+                self.img.blit(partner_l_img[variable.usecha[i]], self.loc[i])
+            else:
+                self.img.blit(
+                    self.plus, (self.loc[i][0]+50, self.loc[i][1]+50))
+        self.image.blit(self.img, self.imgrect)
+
 
 # 新手禮物箱
 
@@ -2827,6 +2914,18 @@ class tow_room_font_up(pygame.sprite.Sprite):
                     self.image.blit(monster_font_2, (self.rect.x, self.rect.y))
                 else:
                     self.rect.midbottom = (650, 0)
+            elif nrt == 'E':
+                self.image.blit(NPC_font_1, (self.rect.x, self.rect.y))
+                self.image.blit(
+                    NPC_font_2, (self.rect.x, self.rect.y+NPC_font_1_h))
+            elif nrt == 'D':
+                self.image.blit(tomb_font_1, (self.rect.x, self.rect.y))
+                self.image.blit(tomb_font_2, (self.rect.x,
+                                self.rect.y+tomb_font_1_h))
+            elif nrt == 'P':
+                self.image.blit(knight_font_1, (self.rect.x, self.rect.y))
+                self.image.blit(knight_font_2, (self.rect.x,
+                                self.rect.y+knight_font_1_h))
             else:
                 self.rect.midbottom = (650, 0)
 
@@ -4024,13 +4123,13 @@ class a_inf(pygame.sprite.Sprite):
                                 tmpprob = random.randint(1, 100)
                                 if tmpprob <= 20:
                                     o.poison += 2
-                                    self.str2 = '，給予【中毒】效果'
+                                    self.str2 += '，給予【中毒】效果'
                                 elif tmpprob <= 65:
                                     o.burn += 2
-                                    self.str2 = '，給予【燃燒】效果'
+                                    self.str2 += '，給予【燃燒】效果'
                                 else:
                                     o.dizz += 2
-                                    self.str2 = '，給予【暈眩】效果'
+                                    self.str2 += '，給予【暈眩】效果'
                         elif self.perform.ATKtype == 3:  # 真實
                             tmpATK = self.perform.nATK
                             o = variable.character_list[self.obj]
@@ -4386,6 +4485,7 @@ class sprites(object):
         self.bag_weapon_intro = b_weapon_intro()
         self.partner_bag = fn_pn()
         self.partner_font = p_font()
+        self.partner_up = p_up()
         self.nobgift = nobgift()
         self.giftgain = gift_gain()
         self.gachaUI = gacha()
@@ -4488,15 +4588,15 @@ all_sprite = pygame.sprite.Group()
 # 遊戲主迴圈
 flag.running = True  # flag：偵測是否要繼續遊戲
 
-
-"""# 測試區
+'''
+# 測試區
 for i in range(1, 5):
     variable.character_list[i].LVup()
-    variable.character_list[i].ULTCD = 0
-variable.usecha = [0, 3, 4]
+variable.usecha = [0]
 sprite_group.battle_sprite.add(sprite.battle_character_1)
 sprite_group.battle_sprite.add(sprite.battle_character_2)
-variable.haveitem['exp'] = 2"""
+variable.haveitem['exp'] = 2'''
+
 
 while flag.running:
 
@@ -4562,6 +4662,10 @@ while flag.running:
             if flag.partner_font:
                 all_sprite.empty()
                 all_sprite.add(sprite.partner_font)
+                background_sprite = sprite_group.partner_sprite.copy()
+            elif flag.partner_up:
+                all_sprite.empty()
+                all_sprite.add(sprite.partner_up)
                 background_sprite = sprite_group.partner_sprite.copy()
         elif flag.in_weapon:
             if not flag.in_wp_intro:
