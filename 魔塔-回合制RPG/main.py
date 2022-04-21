@@ -197,6 +197,8 @@ class variables(object):
         self.character_list.append(Mainc)
         self.character_list.append(classleader)
         self.character_list.append(secclassleader)
+        self.character_list.append(studentMP)
+        self.character_list.append(moneymanager)
         for i in self.character_list:
             i.LV0()
         Mainc.LVup()
@@ -3352,8 +3354,6 @@ class a_inf(pygame.sprite.Sprite):
         self.w = variable.weapon_list[variable.equip_wp[0]
                                       ][variable.equip_wp[1]]
         self.str3 = ''
-        if flag.new_round:
-            self.wpSK += 1
         if self.act == -1:
             self.rect.top = 801
         elif not flag.in_dmg_phrase:
@@ -4812,13 +4812,13 @@ while flag.running:
                     sprite.shopping.image.blit(buy_suc_img, (400, 350))
                     variable.work = 500
                     if sprite.shopping.bt == 0:
-                        variable.haveitem["gi"] += 1
+                        variable.haveitem["gi"] += tmp
                     elif sprite.shopping.bt == 1:
-                        variable.haveitem["lp"] += 1
+                        variable.haveitem["lp"] += tmp
                     elif sprite.shopping.bt == 2:
-                        variable.haveitem["exp"] += 1
+                        variable.haveitem["exp"] += tmp
                     elif sprite.shopping.bt == 3:
-                        variable.haveitem["us"] += 1
+                        variable.haveitem["us"] += tmp
                 else:
                     sprite.shopping.image.blit(buy_fail_img, (400, 350))
                     variable.work = 500
@@ -4836,6 +4836,7 @@ while flag.running:
             flag.battle_initial = False
         if flag.new_round:
             round_start()
+            sprite.act_information.wpSK += 1
             flag.new_round = False
         if flag.attack_choose:
             all_sprite.remove(sprite.act_information)
