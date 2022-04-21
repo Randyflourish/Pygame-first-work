@@ -504,6 +504,8 @@ def enter_battle():
         variable.act_order.append(n)
         if not sprite_group.battle_sprite.has(sprite.chaHP_list[n]):
             sprite_group.battle_sprite.add(sprite.chaHP_list[n])
+        if not sprite_group.battle_sprite.has(sprite.battle_character_list[n]):
+            sprite_group.battle_sprite.add(sprite.battle_character_list[n])
     for n in range(len(variable.enemy)):
         sprite_group.battle_sprite.add(sprite.battle_enemy_list[n])
         sprite_group.battle_sprite.add(sprite.eneHP_list[n])
@@ -596,6 +598,12 @@ def round_start():
     for i in range(len(variable.usecha)):
         cha = variable.usecha[i]
         perform = variable.character_list[cha]
+        if perform.nHP == 0:
+            perform.dizz = 0
+            perform.burn = 0
+            perform.mock = 0
+            perform.poison = 0
+            perform.recover = 0
         if perform.nHP > 0:
             if perform.dizz > 0:
                 perform.dizz -= 1
@@ -637,15 +645,15 @@ def round_start():
             if perform.ULTCD > 0:
                 perform.ULTCD -= 1
             variable.act_order.append(i)
-        else:
-            perform.dizz = 0
-            perform.burn = 0
-            perform.mock = 0
-            perform.poison = 0
-            perform.recover = 0
     for i in range(len(variable.enemy)):
         ene = variable.enemy[i]
-        if ene.nHP > 0:
+        if ene.nHP == 0:
+            ene.dizz = 0
+            ene.burn = 0
+            ene.mock = 0
+            ene.poison = 0
+            ene.recover = 0
+        elif ene.nHP > 0:
             if ene.dizz > 0:
                 ene.dizz -= 1
             if ene.burn > 0:
@@ -670,12 +678,6 @@ def round_start():
             if ene.DEFlimit == -ene.nDEF:
                 if variable.character_list[1].ultskilling == 0:
                     ene.DEFlimit = 0
-        else:
-            ene.dizz = 0
-            ene.burn = 0
-            ene.mock = 0
-            ene.poison = 0
-            ene.recover = 0
     ene_ATK_choose()
 
 # S3：攻擊選定
@@ -959,6 +961,8 @@ p_star_font_img = pygame.image.load(os.path.join(
     "魔塔-回合制RPG", "image", "partner", "star_font.png")).convert_alpha()
 p_star_font2_img = pygame.image.load(os.path.join(
     "魔塔-回合制RPG", "image", "partner", "star_font2.png")).convert_alpha()
+bat_back_img = pygame.image.load(os.path.join(
+    "魔塔-回合制RPG", "image", "battle", "GrassMaze.png")).convert()
 
 # 字體(font)設定
 font_27_18 = pygame.font.SysFont("microsoftjhenghei", 18)
@@ -2099,7 +2103,7 @@ class p_up(pygame.sprite.Sprite):
         self.backrect.bottomleft = (1150, 210)
         self.img.blit(self.back, self.backrect)
         self.image.blit(self.img, self.imgrect)
-        self.loc = [(0, 0), (310, 90), (550, 90)]
+        self.loc = [(0, 0), (320, 90), (550, 90)]
 
     def update(self):
         if mouse_one_press(0):
@@ -2111,7 +2115,10 @@ class p_up(pygame.sprite.Sprite):
                         else:
                             variable.usecha[1] = sprite.partner_bag.act
                     except:
-                        variable.usecha.append(sprite.partner_bag.act)
+                        try:
+                            variable.usecha[1] = sprite.partner_bag.act
+                        except:
+                            variable.usecha.append(sprite.partner_bag.act)
                     self.h_update()
                 elif mouse_location[0] >= 890 and mouse_location[0] <= 1110:
                     try:
@@ -2120,9 +2127,12 @@ class p_up(pygame.sprite.Sprite):
                         else:
                             variable.usecha[2] = sprite.partner_bag.act
                     except:
-                        if variable.usecha[1] == sprite.partner_bag.act:
-                            pass
-                        else:
+                        try:
+                            if variable.usecha[1] == sprite.partner_bag.act:
+                                pass
+                            else:
+                                variable.usecha.append(sprite.partner_bag.act)
+                        except:
                             variable.usecha.append(sprite.partner_bag.act)
                     self.h_update()
             elif self.backrect.collidepoint(mouse_location):
@@ -2135,10 +2145,11 @@ class p_up(pygame.sprite.Sprite):
         self.image.blit(self.back, self.backrect)
         for i in range(1, 3):
             if len(variable.usecha) > i:
-                self.img.blit(partner_l_img[variable.usecha[i]], self.loc[i])
+                self.img.blit(
+                    partner_l_img[variable.usecha[i]],  (self.loc[i][0], self.loc[i][1]))
             else:
                 self.img.blit(
-                    self.plus, (self.loc[i][0]+50, self.loc[i][1]+50))
+                    self.plus, (self.loc[i][0]+40, self.loc[i][1]+50))
         self.image.blit(self.img, self.imgrect)
 
 
@@ -3329,16 +3340,15 @@ class a_inf(pygame.sprite.Sprite):
         self.o_is_monster = True
 
     def update(self):
-        if keyboard_one_press(pygame.K_LEFT):
-            self.act -= 1
-            if self.act < 0:
-                self.act = len(variable.usecha)-1
-            # battle_large_image.h_update(照片)
-        elif keyboard_one_press(pygame.K_RIGHT):
-            self.act += 1
-            if self.act > len(variable.usecha)-1:
-                self.act = 0
-            # battle_large_image.h_update(照片)
+        if self.act <= 2 and self.act >= 0:
+            if keyboard_one_press(pygame.K_LEFT):
+                self.act -= 1
+                if self.act < 0:
+                    self.act = len(variable.usecha)-1
+            elif keyboard_one_press(pygame.K_RIGHT):
+                self.act += 1
+                if self.act > len(variable.usecha)-1:
+                    self.act = 0
         self.w = variable.weapon_list[variable.equip_wp[0]
                                       ][variable.equip_wp[1]]
         self.str3 = ''
@@ -3478,7 +3488,7 @@ class a_inf(pygame.sprite.Sprite):
                                     tmpATK = int(tmpATK*1.3)
                             if self.perform.ATKtype == 1:  # 物理
                                 if (self.act == 0 and self.w.code == (2, 2) and self.moreene == -1):
-                                    if random.randint(1, 50) <= 100:
+                                    if random.randint(1, 100) <= 50:
                                         self.obj = []
                                         for i in range(len(variable.enemy)):
                                             if variable.enemy[i].nHP != 0:
@@ -3502,9 +3512,8 @@ class a_inf(pygame.sprite.Sprite):
                                     for i in range(len(variable.enemy)):
                                         if variable.enemy[i].nHP != 0:
                                             tmpobj.append(i+3)
-                                    self.obj = random.choice(tmpobj)
+                                    self.obj.append(random.choice(tmpobj))
                                 if len(self.obj) == 1:  # 單一目標
-                                    self.moreene = -1
                                     if self.act == 0 and self.perform.skilling > 0:
                                         if self.perform.skillup:
                                             tmpATK = int(tmpATK*1.5)
@@ -3532,7 +3541,11 @@ class a_inf(pygame.sprite.Sprite):
                                         tmpATK = int(tmpATK*1.5)
                                         self.str1 += '，造成暴擊'
                                     if self.act == 0 and self.w.code == (2, 2):
-                                        tmpATK = int(tmpATK*1.5)
+                                        if self.moreene != 0:
+                                            tmpATK = int(tmpATK*1.5)
+                                        else:
+                                            tmpATK = int(tmpATK*0.75)
+                                    self.moreene = -1
                                     tmpDEF = o.nDEF+o.DEFlimit
                                     if not self.o_is_monster:
                                         if o.name == '竹君' and o.skilling > 0:
@@ -3618,6 +3631,8 @@ class a_inf(pygame.sprite.Sprite):
                                             antiatk = max(
                                                 int(cause_dmg)*0.1, 1)
                                             self.perform.nHP -= antiatk
+                                            self.perform.nHP = max(
+                                                self.perform.nHP, 0)
                                             self.str3 += '遭到魔像反擊，受到 ' + \
                                                 str(antiatk)+' 點真實傷害'
                                 else:   # 群體
@@ -3630,7 +3645,9 @@ class a_inf(pygame.sprite.Sprite):
                                         if o.type == '史萊姆':
                                             tmpATK //= 2
                                         self.str2 = '對 '+o.type+' 造成 '
+                                        self.o_is_monster = True
                                     else:
+                                        self.o_is_monster = False
                                         o = variable.character_list[variable.usecha[o]]
                                         self.str2 = '對 '+o.name+' 造成 '
                                     if critical(self.perform):
@@ -3668,6 +3685,8 @@ class a_inf(pygame.sprite.Sprite):
                                             antiatk = max(
                                                 int(cause_dmg)*0.1, 1)
                                             self.perform.nHP -= antiatk
+                                            self.perform.nHP = max(
+                                                self.perform.nHP, 0)
                                             self.str3 = '遭到反擊，受到 ' + \
                                                 str(antiatk)+' 點真實傷害'
                             elif self.perform.ATKtype == 2:  # 魔法
@@ -3680,6 +3699,7 @@ class a_inf(pygame.sprite.Sprite):
                                     self.moreene = -1
                                     o = self.obj[0]
                                     if o >= 3:
+                                        self.o_is_monster = True
                                         o = variable.enemy[o-3]
                                         mockene = []
                                         # 判斷嘲諷
@@ -3692,6 +3712,7 @@ class a_inf(pygame.sprite.Sprite):
                                     else:
                                         o = variable.character_list[variable.usecha[o]]
                                         self.str2 = '對 '+o.name+' 造成 '
+                                        self.o_is_monster = False
                                     if self.act == 0 and self.w.code == (4, 1):
                                         if o.burn != 0:
                                             tmpATK = int(tmpATK*1.5)
@@ -3734,6 +3755,8 @@ class a_inf(pygame.sprite.Sprite):
                                             antiatk = max(
                                                 int(cause_dmg)*0.1, 1)
                                             self.perform.nHP -= antiatk
+                                            self.perform.nHP = max(
+                                                self.perform.nHP, 0)
                                             self.str3 = '遭到反擊，受到 ' + \
                                                 str(antiatk)+' 點真實傷害'
                                 else:   # 群體
@@ -3744,6 +3767,7 @@ class a_inf(pygame.sprite.Sprite):
                                     if o >= 3:
                                         o = variable.enemy[o-3]
                                         self.str2 = '對 '+o.type+' 造成 '
+                                        self.o_is_monster = True
                                     if self.act == 0 and self.w.code == (4, 1):
                                         if o.burn != 0:
                                             tmpATK = int(tmpATK*1.5)
@@ -3783,6 +3807,8 @@ class a_inf(pygame.sprite.Sprite):
                                             antiatk = max(
                                                 int(cause_dmg)*0.1, 1)
                                             self.perform.nHP -= antiatk
+                                            self.perform.nHP = max(
+                                                self.perform.nHP, 0)
                                             self.str3 = '遭到反擊，受到 ' + \
                                                 str(antiatk)+' 點真實傷害'
                             elif self.perform.ATKtype == 3:  # 真實
@@ -3798,8 +3824,10 @@ class a_inf(pygame.sprite.Sprite):
                                         if len(mockene) != 0:
                                             o = random.choice(mockene)
                                         self.str2 = '對 '+o.type+' 造成 '
+                                        self.o_is_monster = True
                                     else:
                                         o = variable.character_list[variable.usecha[o]]
+                                        self.o_is_monster = False
                                         self.str2 = '對 '+o.name+' 造成 '
                                     if critical(self.perform):
                                         tmpATK = int(tmpATK*1.5)
@@ -3834,6 +3862,8 @@ class a_inf(pygame.sprite.Sprite):
                                             antiatk = max(
                                                 int(cause_dmg)*0.1, 1)
                                             self.perform.nHP -= antiatk
+                                            self.perform.nHP = max(
+                                                self.perform.nHP, 0)
                                             self.str3 = '遭到反擊，受到 ' + \
                                                 str(antiatk)+' 點真實傷害'
                             elif self.perform.ATKtype == 4:  # 回復
@@ -4330,6 +4360,8 @@ class bat_heal_font(pygame.sprite.Sprite):
                 variable.haveitem["lp"] -= 1
                 sprite.act_information.perform.nHP += (
                     sprite.act_information.perform.HP[sprite.act_information.perform.level])//5
+                sprite.act_information.perform.nHP = min(
+                    sprite.act_information.perform.nHP, sprite.act_information.perform.HP[sprite.act_information.perform.level]+sprite.act_information.perform.HPlimit)
                 flag.heal_cha = False
                 flag.sprite_need_change = True
             else:
@@ -4511,6 +4543,8 @@ class sprites(object):
         self.battle_character_0 = bat_cha(0)
         self.battle_character_1 = bat_cha(1)
         self.battle_character_2 = bat_cha(2)
+        self.battle_character_list = [
+            self.battle_character_0, self.battle_character_1, self.battle_character_2]
         self.battle_enemy_0 = bat_ene(0)
         self.battle_enemy_1 = bat_ene(1)
         self.battle_enemy_2 = bat_ene(2)
@@ -4588,14 +4622,14 @@ all_sprite = pygame.sprite.Group()
 # 遊戲主迴圈
 flag.running = True  # flag：偵測是否要繼續遊戲
 
-'''
+
 # 測試區
-for i in range(1, 5):
+"""for i in range(1, 5):
     variable.character_list[i].LVup()
 variable.usecha = [0]
 sprite_group.battle_sprite.add(sprite.battle_character_1)
 sprite_group.battle_sprite.add(sprite.battle_character_2)
-variable.haveitem['exp'] = 2'''
+variable.haveitem['exp'] = 2"""
 
 
 while flag.running:
@@ -4777,6 +4811,14 @@ while flag.running:
                     variable.coin = tmplist[1]
                     sprite.shopping.image.blit(buy_suc_img, (400, 350))
                     variable.work = 500
+                    if sprite.shopping.bt == 0:
+                        variable.haveitem["gi"] += 1
+                    elif sprite.shopping.bt == 1:
+                        variable.haveitem["lp"] += 1
+                    elif sprite.shopping.bt == 2:
+                        variable.haveitem["exp"] += 1
+                    elif sprite.shopping.bt == 3:
+                        variable.haveitem["us"] += 1
                 else:
                     sprite.shopping.image.blit(buy_fail_img, (400, 350))
                     variable.work = 500
@@ -4790,6 +4832,7 @@ while flag.running:
     if flag.in_battle:
         if flag.battle_initial:
             enter_battle()
+            all_sprite = sprite_group.battle_sprite.copy()
             flag.battle_initial = False
         if flag.new_round:
             round_start()
@@ -4825,6 +4868,8 @@ while flag.running:
 
     if not flag.lose_game:
         screen.fill(WHITE)  # 重製畫面為白色（洗掉原本畫面上的圖案，不然會發生重疊）
+        if flag.in_battle:
+            screen.blit(bat_back_img, (0, 0))
     else:
         screen.fill(BLACK)
     background_sprite.draw(screen)  # 畫背景
