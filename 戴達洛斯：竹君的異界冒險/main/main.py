@@ -698,273 +698,273 @@ def ene_ATK_choose():
 
 # 載入圖片
 function_list_img = pygame.image.load(
-    os.path.join("魔塔-回合制RPG", "image", "list.png")).convert()
+    os.path.join("戴達洛斯：竹君的異界冒險", "main", "image", "list.png")).convert()
 function_list_back_img = pygame.image.load(
-    os.path.join("魔塔-回合制RPG", "image", "list_back.png")).convert()
+    os.path.join("戴達洛斯：竹君的異界冒險", "main", "image", "list_back.png")).convert()
 village_map_img = pygame.image.load(
-    os.path.join("魔塔-回合制RPG", "image", "village_map.png")).convert()
+    os.path.join("戴達洛斯：竹君的異界冒險", "main", "image", "village_map.png")).convert()
 tower_outline_img = pygame.image.load(
-    os.path.join("魔塔-回合制RPG", "image", "tower_outline.png")).convert_alpha()  # 透明背景convert
+    os.path.join("戴達洛斯：竹君的異界冒險", "main", "image", "tower_outline.png")).convert_alpha()  # 透明背景convert
 gachaboard_img = pygame.image.load(
-    os.path.join("魔塔-回合制RPG", "image", "gachaboard.png")).convert_alpha()
+    os.path.join("戴達洛斯：竹君的異界冒險", "main", "image", "gachaboard.png")).convert_alpha()
 g_gachaitem_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "gacha", "g_gachaitem.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "gacha", "g_gachaitem.png")).convert_alpha()
 gift_img = pygame.image.load(
-    os.path.join("魔塔-回合制RPG", "image", "gift.png")).convert_alpha()
+    os.path.join("戴達洛斯：竹君的異界冒險", "main", "image", "gift.png")).convert_alpha()
 shop_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "Shop.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "Shop.png")).convert_alpha()
 shopmenu_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "shopmenu.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "shopmenu.png")).convert()
 shop_back_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "shop_background.jpeg")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "shop_background.jpeg")).convert()
 cancel_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "cancel.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "cancel.png")).convert_alpha()
 gachaitem_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "gachaitem.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "gachaitem.png")).convert_alpha()
 life_potion_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "life_potion.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "life_potion.png")).convert_alpha()
 exp_potion_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "exp_potion.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "exp_potion.png")).convert_alpha()
 upstar_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "upstar.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "upstar.png")).convert_alpha()
 b_gachaitem_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bag", "b_gachaitem.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bag", "b_gachaitem.png")).convert_alpha()
 b_life_potion_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bag", "b_life_potion.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bag", "b_life_potion.png")).convert_alpha()
 b_exp_potion_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bag", "b_exp_potion.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bag", "b_exp_potion.png")).convert_alpha()
 b_upstar_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bag", "b_upstar.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bag", "b_upstar.png")).convert_alpha()
 b_magic_stone_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bag", "b_magic_stone.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bag", "b_magic_stone.png")).convert_alpha()
 b_coin_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bag", "b_coin.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bag", "b_coin.png")).convert_alpha()
 b_introblock_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bag", "b_introduce.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bag", "b_introduce.png")).convert_alpha()
 inpbox_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "inpbox.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "inpbox.png")).convert()
 no_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "no.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "no.png")).convert_alpha()
 yes_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "yes.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "yes.png")).convert_alpha()
 inp_error_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "inp_error.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "inp_error.png")).convert()
 buy_suc_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "buy_suc.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "buy_suc.png")).convert_alpha()
 buy_fail_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "shop", "buy_fail.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "shop", "buy_fail.png")).convert_alpha()
 tower_room_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "room.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "room.png")).convert()
 door1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "door1.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "door1.png")).convert()
 door2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "door2.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "door2.png")).convert()
 door3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "door3.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "door3.png")).convert()
 door4_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "door4.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "door4.png")).convert()
 portal_img = pygame.image.load(
-    os.path.join("魔塔-回合制RPG", "image", "portal.png")).convert_alpha()
+    os.path.join("戴達洛斯：竹君的異界冒險", "main", "image", "portal.png")).convert_alpha()
 chest_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "chest.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "chest.png")).convert_alpha()
 openedchest_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "chestopened.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "chestopened.png")).convert_alpha()
 c_gachaitem_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "c_gachaitem.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "c_gachaitem.png")).convert_alpha()
 c_upstar_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "c_upstar.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "c_upstar.png")).convert_alpha()
 c_magic_stone_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "c_magic_stone.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "c_magic_stone.png")).convert_alpha()
 c_coin_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "c_coin.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "c_coin.png")).convert_alpha()
 c_life_potion_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "c_life_potion.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "c_life_potion.png")).convert_alpha()
 c_exp_potion_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "c_exp_potion.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "c_exp_potion.png")).convert_alpha()
 chestgain_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "chest", "gain.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "chest", "gain.png")).convert_alpha()
 Slime_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Slime_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Slime_a.png")).convert_alpha()
 Slime_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Slime_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Slime_b.png")).convert_alpha()
 Slime_img = [Slime_l_img, Slime_s_img]
 Goblin_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Goblin_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Goblin_a.png")).convert_alpha()
 Goblin_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Goblin_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Goblin_b.png")).convert_alpha()
 Goblin_img = [Goblin_l_img, Goblin_s_img]
 CultPriest_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "CultPriest_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "CultPriest_a.png")).convert_alpha()
 CultPriest_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "CultPriest_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "CultPriest_b.png")).convert_alpha()
 CultPriest_img = [CultPriest_l_img, CultPriest_s_img]
 Orcs_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Orcs_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Orcs_a.png")).convert_alpha()
 Orcs_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Orcs_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Orcs_b.png")).convert_alpha()
 Orcs_img = [Orcs_l_img, Orcs_s_img]
 Golem_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Golem_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Golem_a.png")).convert_alpha()
 Golem_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Golem_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Golem_b.png")).convert_alpha()
 Golem_img = [Golem_l_img, Golem_s_img]
 deadslime_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "enemy", "Slimedead.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "enemy", "Slimedead.png")).convert_alpha()
 statue_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "statue.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "statue.png")).convert_alpha()
 bigstatue_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bigstatue.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bigstatue.png")).convert_alpha()
 statue_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "statue_bless.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "statue_bless.png")).convert_alpha()
 bigstatue_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "bigstatue_bless.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "bigstatue_bless.png")).convert_alpha()
 tomb_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "tomb.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "tomb.png")).convert_alpha()
 knight_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "knight.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "knight.png")).convert_alpha()
 NPC_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "NPC.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "NPC.png")).convert_alpha()
 cha_ba_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_ba_1.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_ba_1.png")).convert_alpha()
 cha_ba_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_ba_2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_ba_2.png")).convert_alpha()
 cha_ba_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_ba_3.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_ba_3.png")).convert_alpha()
 cha_ba_img = [cha_ba_2_img, cha_ba_1_img, cha_ba_3_img, cha_ba_1_img]
 cha_fr_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_fr_1.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_fr_1.png")).convert_alpha()
 cha_fr_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_fr_2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_fr_2.png")).convert_alpha()
 cha_fr_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_fr_3.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_fr_3.png")).convert_alpha()
 cha_fr_img = [cha_fr_2_img, cha_fr_1_img, cha_fr_3_img, cha_fr_1_img]
 cha_le_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_le_1.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_le_1.png")).convert_alpha()
 cha_le_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_le_2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_le_2.png")).convert_alpha()
 cha_le_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_le_3.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_le_3.png")).convert_alpha()
 cha_le_img = [cha_le_2_img, cha_le_1_img, cha_le_3_img, cha_le_1_img]
 cha_ri_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_ri_1.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_ri_1.png")).convert_alpha()
 cha_ri_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_ri_2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_ri_2.png")).convert_alpha()
 cha_ri_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "cha", "cha_ri_3.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "cha", "cha_ri_3.png")).convert_alpha()
 cha_ri_img = [cha_ri_2_img, cha_ri_1_img, cha_ri_3_img, cha_ri_1_img]
 tow_midblock_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "tower_midblock.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "tower_midblock.png")).convert_alpha()
 HPbar_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "HPbar.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "HPbar.png")).convert()
 s_HPbar_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "small_HPbar.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "small_HPbar.png")).convert()
 normalATK_botton_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "bot_1.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "bot_1.png")).convert_alpha()
 skillATK_botton_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "bot_2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "bot_2.png")).convert_alpha()
 ultraATK_botton_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "bot_3.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "bot_3.png")).convert_alpha()
 healATK_botton_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "bot_4.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "bot_4.png")).convert_alpha()
 execute_botton_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "bot_5.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "bot_5.png")).convert_alpha()
 detail_botton_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "bot_6.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "bot_6.png")).convert_alpha()
 botton_ring_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "choose_ring.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "choose_ring.png")).convert_alpha()
 bat_font_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "font.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "font.png")).convert_alpha()
 recover_font_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "recover_font.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "recover_font.png")).convert_alpha()
 recover_font2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "recover_font2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "recover_font2.png")).convert_alpha()
 victory_gain_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "vic_gain.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "vic_gain.png")).convert_alpha()
 gachaUI_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "gacha", "gacha_UI.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "gacha", "gacha_UI.png")).convert()
 w_ring_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "usering.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "usering.png")).convert_alpha()
 w_equip_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "equip_bot.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "equip_bot.png")).convert()
 w_r0_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "操場上的樹枝.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "操場上的樹枝.png")).convert_alpha()
 w_r1_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "裝滿課本的書包.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "裝滿課本的書包.png")).convert_alpha()
 w_r1_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "清潔用乳膠手套.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "清潔用乳膠手套.png")).convert_alpha()
 w_r1_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "鄉民專用尺.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "鄉民專用尺.png")).convert_alpha()
 w_r2_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "沾滿髒水的拖把.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "沾滿髒水的拖把.png")).convert_alpha()
 w_r2_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "泡成湯麵的維X炸醬麵.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "泡成湯麵的維X炸醬麵.png")).convert_alpha()
 w_r2_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "髒掉的粉筆.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "髒掉的粉筆.png")).convert_alpha()
 w_r3_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "講桌上的籤筒.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "講桌上的籤筒.png")).convert_alpha()
 w_r3_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "兩根水管.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "兩根水管.png")).convert_alpha()
 w_r3_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "實驗室的燒杯.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "實驗室的燒杯.png")).convert_alpha()
 w_r4_1_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "不等臂天秤.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "不等臂天秤.png")).convert_alpha()
 w_r4_2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "大辣乾鍋.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "大辣乾鍋.png")).convert_alpha()
 w_r4_3_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "weapon", "偷渡進來的澀澀書刊.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "weapon", "偷渡進來的澀澀書刊.png")).convert_alpha()
 weapon_img = [[w_r0_1_img], [w_r1_1_img, w_r1_2_img, w_r1_3_img], [w_r2_1_img, w_r2_2_img,
                                                                    w_r2_3_img], [w_r3_1_img, w_r3_2_img, w_r3_3_img], [w_r4_1_img, w_r4_2_img, w_r4_3_img]]
 
 partner_0_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_0_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_0_a.png")).convert_alpha()
 partner_1_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_1_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_1_a.png")).convert_alpha()
 partner_2_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_2_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_2_a.png")).convert_alpha()
 partner_3_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_3_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_3_a.png")).convert_alpha()
 partner_4_s_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_4_a.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_4_a.png")).convert_alpha()
 partner_0_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_0_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_0_b.png")).convert_alpha()
 partner_1_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_1_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_1_b.png")).convert_alpha()
 partner_2_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_2_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_2_b.png")).convert_alpha()
 partner_3_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_3_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_3_b.png")).convert_alpha()
 partner_4_l_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "cha_4_b.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "cha_4_b.png")).convert_alpha()
 partner_s_img = [partner_0_s_img, partner_1_s_img,
                  partner_2_s_img, partner_3_s_img, partner_4_s_img]
 partner_l_img = [partner_0_l_img, partner_1_l_img,
                  partner_2_l_img, partner_3_l_img, partner_4_l_img]
 p_equip_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "equip_bot.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "equip_bot.png")).convert()
 p_goup_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "go_up.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "go_up.png")).convert_alpha()
 p_plus_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "up_plus.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "up_plus.png")).convert_alpha()
 p_HP_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "HP_bot.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "HP_bot.png")).convert_alpha()
 p_recover_font_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "recover_font.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "recover_font.png")).convert_alpha()
 p_recover_font2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "recover_font2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "recover_font2.png")).convert_alpha()
 p_EXP_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "EXP_bot.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "EXP_bot.png")).convert_alpha()
 p_EXP_font_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "EXP_font.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "EXP_font.png")).convert_alpha()
 p_EXP_font2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "EXP_font2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "EXP_font2.png")).convert_alpha()
 p_star_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "star_bot.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "star_bot.png")).convert_alpha()
 p_star_font_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "star_font.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "star_font.png")).convert_alpha()
 p_star_font2_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "partner", "star_font2.png")).convert_alpha()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "partner", "star_font2.png")).convert_alpha()
 bat_back_img = pygame.image.load(os.path.join(
-    "魔塔-回合制RPG", "image", "battle", "GrassMaze.png")).convert()
+    "戴達洛斯：竹君的異界冒險", "main", "image", "battle", "GrassMaze.png")).convert()
 
 # 字體(font)設定
 font_27_18 = pygame.font.SysFont("microsoftjhenghei", 18)
