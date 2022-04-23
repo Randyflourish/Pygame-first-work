@@ -9,7 +9,7 @@ import gc  # 優化暫存變數區域
 
 # 遊戲基礎設定（螢幕、最高執行速度）
 
-FPS = 30
+FPS = 45
 WIDTH = 1500
 HIGHTH = 800
 
@@ -3403,7 +3403,7 @@ class a_inf(pygame.sprite.Sprite):
             self.detbotmrect.center = (
                 self.detbotrect.centerx+self.rect.x, self.detbotrect.centery+self.rect.y)
             self.image.blit(self.detbot, self.detbotrect)
-            if self.act <= 2 and self.act != 0:
+            if self.act <= 2 and variable.character_list[variable.usecha[self.act]].nHP != 0:
                 self.image.blit(self.norbot, self.norbotrect)
                 self.image.blit(self.skibot, self.skibotrect)
                 self.image.blit(self.ultbot, self.ultbotrect)
