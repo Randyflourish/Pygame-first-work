@@ -4665,8 +4665,8 @@ flag.running = True  # flag：偵測是否要繼續遊戲
 variable.usecha = [0]
 sprite_group.battle_sprite.add(sprite.battle_character_1)
 sprite_group.battle_sprite.add(sprite.battle_character_2)
-variable.character_list[0].SKCD = 0"""
-variable.haveitem['exp'] = 10
+variable.character_list[0].SKCD = 0
+variable.haveitem['exp'] = 10"""
 
 while flag.running:
 
