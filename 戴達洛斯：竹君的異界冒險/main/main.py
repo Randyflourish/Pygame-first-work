@@ -473,8 +473,8 @@ class monster(object):
 Slime = monster("史萊姆", ATK=[0, 5, 6, 7, 8, 9, 10, 11, 12], DEF=[0, 0, 1, 2, 3, 4, 5, 6, 7], HP=[
                 0, 15, 17, 19, 21, 23, 25, 27, 29], ATKtype=1, cost=1)
 
-Goblin = monster("哥布林", ATK=[0,  6, 8, 10, 12, 14, 16, 18, 20], DEF=[
-    0,  1, 3, 5, 7, 9, 11, 13, 15], HP=[0, 32, 35, 38, 41, 44, 47, 51, 54],  ATKtype=1, cost=2)
+Goblin = monster("哥布林", ATK=[0, 6, 8, 10, 12, 14, 16, 18, 20], DEF=[
+    0, 1, 3, 5, 7, 9, 11, 13, 15], HP=[0, 32, 35, 38, 41, 44, 47, 51, 54],  ATKtype=1, cost=2)
 
 CultPriest = monster("邪教祭司", ATK=[0,  11, 14, 17, 20, 23, 26, 29, 32], DEF=[
     0, 4, 6, 8, 10, 12, 14, 16, 18], HP=[0,  47, 51, 55, 59, 63, 67, 71, 75],  ATKtype=2, cost=3)
@@ -581,6 +581,7 @@ def set_enemt_type(n):
             variable.enemy.append(copy.copy(Slime))
             tmp += Slime.cost
             sprite.battle_enemy_list[times].type_img = Slime_img
+        variable.enemy[times].update()
         times += 1
 
 # S2：回合開始
@@ -3184,6 +3185,7 @@ class god_idol(pygame.sprite.Sprite):
                 tmp = variable.character_list[i]
                 tmp.nHP += (tmp.HP[tmp.level]//5)
                 tmp.nHP = min(tmp.nHP, tmp.HP[tmp.level])
+            self.light = 0
 
 
 # 以下皆為戰鬥介面的一堆東西
