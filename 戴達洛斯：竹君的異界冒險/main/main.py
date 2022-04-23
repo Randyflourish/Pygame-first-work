@@ -3273,6 +3273,12 @@ class bat_ene(pygame.sprite.Sprite):
                 variable.work = 800
                 flag.attack_choose = False
                 sprite.battle_font.h_update()
+            elif sprite.act_information.perform.ATKtype == 4:
+                sprite.battle_font.situation = 5
+                sprite.battle_font.display = True
+                variable.work = 800
+                flag.attack_choose = False
+                sprite.battle_font.h_update()
             else:
                 if len(variable.myATKobject[sprite.act_information.act]) == 0:
                     variable.myATKobject[sprite.act_information.act].append(
@@ -3374,6 +3380,7 @@ class a_inf(pygame.sprite.Sprite):
         self.o_is_monster = True
 
     def update(self):
+        self.death_check()
         if self.act <= 2 and self.act >= 0:
             if keyboard_one_press(pygame.K_LEFT):
                 self.act -= 1
@@ -3396,7 +3403,7 @@ class a_inf(pygame.sprite.Sprite):
             self.detbotmrect.center = (
                 self.detbotrect.centerx+self.rect.x, self.detbotrect.centery+self.rect.y)
             self.image.blit(self.detbot, self.detbotrect)
-            if self.act <= 2:
+            if self.act <= 2 and self.act != 0:
                 self.image.blit(self.norbot, self.norbotrect)
                 self.image.blit(self.skibot, self.skibotrect)
                 self.image.blit(self.ultbot, self.ultbotrect)
@@ -3435,38 +3442,56 @@ class a_inf(pygame.sprite.Sprite):
                 self.image.blit(self.namefont, (230, 0))
                 if (self.norbotmrect.collidepoint(mouse_location) and mouse_one_press(0)) or keyboard_one_press(pygame.K_a):
                     variable.myATKtype[self.act] = 0
-                    if self.w.code != (4, 1):
-                        flag.attack_choose = True
-                    if self.perform.name == '班長' and self.perform.skilling != 0:
-                        flag.attack_choose = False
+                    if self.perform.nHP == 0:
+                        sprite.battle_font.situation = 2
+                        sprite.battle_font.display = True
+                        variable.work = 800
+                        sprite.battle_font.h_update()
+                    else:
+                        if self.w.code != (4, 1):
+                            flag.attack_choose = True
+                        if self.perform.name == '班長' and self.perform.skilling != 0:
+                            flag.attack_choose = False
                 elif (self.skibotmrect.collidepoint(mouse_location) and mouse_one_press(0)) or keyboard_one_press(pygame.K_q):
-                    if self.perform.SKCD == 0:
-                        variable.myATKtype[self.act] = 1
-                    else:
-                        variable.work = 700
+                    if self.perform.nHP == 0:
+                        sprite.battle_font.situation = 2
                         sprite.battle_font.display = True
-                        sprite.battle_font.situation = 1
+                        variable.work = 800
                         sprite.battle_font.h_update()
+                    else:
+                        if self.perform.SKCD == 0:
+                            variable.myATKtype[self.act] = 1
+                        else:
+                            variable.work = 700
+                            sprite.battle_font.display = True
+                            sprite.battle_font.situation = 1
+                            sprite.battle_font.h_update()
                 elif (self.ultbotmrect.collidepoint(mouse_location) and mouse_one_press(0)) or keyboard_one_press(pygame.K_z):
-                    if self.perform.ULTCD == 0:
-                        variable.myATKtype[self.act] = 2
-                        flag.attack_choose = True
-                        ultnc = [0, 2, 4]
-                        for i in ultnc:
-                            if variable.usecha[self.act] == i:
-                                flag.attack_choose = False
-                                break
-                    else:
-                        variable.work = 700
+                    if self.perform.nHP == 0:
+                        sprite.battle_font.situation = 2
                         sprite.battle_font.display = True
-                        sprite.battle_font.situation = 1
+                        variable.work = 800
                         sprite.battle_font.h_update()
+                    else:
+                        if self.perform.ULTCD == 0:
+                            variable.myATKtype[self.act] = 2
+                            flag.attack_choose = True
+                            ultnc = [0, 2, 4]
+                            for i in ultnc:
+                                if variable.usecha[self.act] == i:
+                                    flag.attack_choose = False
+                                    break
+                        else:
+                            variable.work = 700
+                            sprite.battle_font.display = True
+                            sprite.battle_font.situation = 1
+                            sprite.battle_font.h_update()
                 elif (self.healbotmrect.collidepoint(mouse_location) and mouse_one_press(0)) or keyboard_one_press(pygame.K_h):
                     flag.heal_cha = True
                     flag.sprite_need_change = True
                 elif (self.exebotmrect.collidepoint(mouse_location) and mouse_one_press(0)) or keyboard_one_press(pygame.K_RETURN):
                     for i in range(len(variable.usecha)):
-                        if variable.myATKtype[i] == -1 and variable.character_list[variable.usecha[i]].dizz == 0:
+                        if variable.myATKtype[i] == -1 and variable.character_list[variable.usecha[i]].dizz == 0 and variable.character_list[variable.usecha[i]].nHP != 0:
                             sprite.battle_font.display = True
                             sprite.battle_font.situation = 6
                             sprite.battle_font.h_update()
@@ -3474,7 +3499,7 @@ class a_inf(pygame.sprite.Sprite):
                             break
                     else:
                         flag.in_dmg_phrase = True
-                        self.act = 0
+                        self.act = variable.act_order[0]
                 if variable.myATKtype[self.act] == 0:
                     self.ringrect.center = self.norbotrect.center
                 elif variable.myATKtype[self.act] == 1:
@@ -3484,6 +3509,14 @@ class a_inf(pygame.sprite.Sprite):
                 else:
                     self.ringrect.top = 205
                 self.image.blit(self.ring, self.ringrect)
+            elif self.act <= 2:
+                self.perform = variable.character_list[variable.usecha[self.act]]
+                self.namefont = font_27_40_B.render(
+                    self.perform.name, False, WHITE)
+                if self.namefont.get_width() >= 240:
+                    self.namefont = font_27_30_B.render(
+                        self.perform.name, False, WHITE)
+                self.image.blit(self.namefont, (230, 0))
             elif self.act <= 5:
                 self.perform = variable.enemy[self.act-3]
                 self.namefont = font_27_40_B.render(
@@ -3640,8 +3673,8 @@ class a_inf(pygame.sprite.Sprite):
                                     elif self.act == 0 and self.w.code == (1, 2) and cause_dmg == 15:
                                         self.str2 += '，15公分！'
                                     elif self.act == 0 and self.w.code == (2, 0):
-                                        another_ATK = int((self.perform.nATK +
-                                                           self.perform.ATKlimit)//5)
+                                        another_ATK = (self.perform.nATK +
+                                                       self.perform.ATKlimit)//5
                                         if variable.character_list[3].skilling > 0 and self.o_is_monster:
                                             if not variable.character_list[3].skillup:
                                                 cause_dmg = max(
@@ -3650,8 +3683,9 @@ class a_inf(pygame.sprite.Sprite):
                                                 cause_dmg = max(
                                                     int(cause_dmg*1.6), cause_dmg+1)
                                         o.nHP -= another_ATK
+                                        o.nHP = max(o.nHP, 0)
                                         self.str2 += ('，追擊 ' +
-                                                      str(int(self.perform.nATK//5))+' 點真實傷害')
+                                                      str(another_ATK)+' 點真實傷害')
                                     if o.nHP == 0:
                                         self.str2 += '，使其死亡'
                                         o.mock = 0
@@ -4187,13 +4221,13 @@ class a_inf(pygame.sprite.Sprite):
                                 tmpprob = random.randint(1, 100)
                                 if tmpprob <= 20:
                                     o.poison += 2
-                                    self.str2 += '，給予【中毒】效果'
+                                    self.str2 += '。給予我方目標【中毒】效果'
                                 elif tmpprob <= 65:
                                     o.burn += 2
-                                    self.str2 += '，給予【燃燒】效果'
+                                    self.str2 += '。給予我方目標【燃燒】效果'
                                 else:
                                     o.dizz += 2
-                                    self.str2 += '，給予【暈眩】效果'
+                                    self.str2 += '。給予我方目標【暈眩】效果'
                         elif self.perform.ATKtype == 3:  # 真實
                             tmpATK = self.perform.nATK
                             o = variable.character_list[variable.usecha[self.obj]]
