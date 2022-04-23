@@ -4234,10 +4234,10 @@ class a_inf(pygame.sprite.Sprite):
                                 o.mock = 0
                             elif self.perform.type == '邪教祭司':
                                 tmpprob = random.randint(1, 100)
-                                if tmpprob <= 20:
+                                if tmpprob <= 40:
                                     o.poison += 2
                                     self.str2 += '。給予我方目標【中毒】效果'
-                                elif tmpprob <= 65:
+                                elif tmpprob <= 85:
                                     o.burn += 2
                                     self.str2 += '。給予我方目標【燃燒】效果'
                                 else:
