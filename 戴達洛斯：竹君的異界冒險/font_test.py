@@ -10,7 +10,8 @@ screen = pygame.display.set_mode((WIDTH, HIGHTH))  # 螢幕輸出
 pygame.display.set_caption("font test  made by Kaihatsu")
 clock = pygame.time.Clock()  # 時間控制
 ZiTi = pygame.font.get_fonts()
-
+CN = [24, 27, 28, 33, 34, 40, 41, 42, 58, 59, 75, 76, 77, 78, 79, 80, 81, 83, 84,
+      85, 86, 137, 138, 205, 206, 208, 210, 211, 212, 213, 214, 215, 216, 217, 218]
 events = pygame.event.get()
 mouse_press = pygame.mouse.get_pressed()
 
