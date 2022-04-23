@@ -396,7 +396,7 @@ studentMP = character("學生議員", ATK=[0, 10, 23, 40, 60, 85], DEF=[0, 1, 2,
 variable.character_list.append(studentMP)
 
 # 4
-moneymanager = character("總務股長", ATK=[0, 3, 7, 11, 18, 27], DEF=[0, 1, 3, 6, 10, 15], HP=[
+moneymanager = character("總務股長", ATK=[0, 4, 8, 13, 19, 27], DEF=[0, 1, 3, 6, 10, 15], HP=[
     0, 25, 45, 70, 95, 125], SKCD=4, UPSKCD=4, ULTCD=9,  ATKtype=4, workstr='回復、支援')
 variable.character_list.append(moneymanager)
 
@@ -2662,6 +2662,8 @@ class gacha_got(pygame.sprite.Sprite):
         if variable.character_list[c].level != 0:
             self.image.blit(self.font3, self.font3rect)
             variable.character_list[c].exp += 1
+            if variable.character_list[c].exp == variable.character_list[c].level*2:
+                variable.character_list[c].LVup()
         else:
             variable.character_list[c].LVup()
             variable.character_list[c].SKCD = variable.character_list[c].oriSKCD
