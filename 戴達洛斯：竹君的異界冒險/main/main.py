@@ -3176,6 +3176,10 @@ class god_idol(pygame.sprite.Sprite):
             flag.sprite_need_change = True
             flag.roomgone[variable.nowroom[1]][variable.nowroom[0]] = True
             sprite.tower_room_image.h_update()
+            for i in variable.usecha:
+                tmp = variable.character_list[i]
+                tmp.nHP += (tmp.HP[tmp.level]//5)
+                tmp.nHP = min(tmp.nHP, tmp.HP[tmp.level])
 
 
 # 以下皆為戰鬥介面的一堆東西
