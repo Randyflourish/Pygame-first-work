@@ -386,7 +386,7 @@ classleader = character("班長", ATK=[0, 7, 15, 25, 45, 65], DEF=[0, 2, 4, 8, 1
 variable.character_list.append(classleader)
 
 # 2
-secclassleader = character("副班長", ATK=[0, 3, 7, 10, 15, 20], DEF=[0, 4, 9, 14, 22, 30], HP=[
+secclassleader = character("副班長", ATK=[0, 3, 7, 10, 15, 20], DEF=[0, 3, 8, 12, 19, 26], HP=[
     0, 50, 75, 110, 150, 195], SKCD=4, UPSKCD=4, ULTCD=8,  ATKtype=1, workstr='物理、坦克')
 variable.character_list.append(secclassleader)
 
@@ -396,7 +396,7 @@ studentMP = character("學生議員", ATK=[0, 10, 23, 40, 60, 85], DEF=[0, 1, 2,
 variable.character_list.append(studentMP)
 
 # 4
-moneymanager = character("總務股長", ATK=[0, 5, 9, 15, 23, 35], DEF=[0, 1, 3, 6, 10, 15], HP=[
+moneymanager = character("總務股長", ATK=[0, 3, 7, 11, 18, 27], DEF=[0, 1, 3, 6, 10, 15], HP=[
     0, 25, 45, 70, 95, 125], SKCD=4, UPSKCD=4, ULTCD=9,  ATKtype=4, workstr='回復、支援')
 variable.character_list.append(moneymanager)
 
@@ -525,6 +525,9 @@ def enter_battle():
         c.mock = 0
         c.ATKlimit = 0
         c.DEFlimit = 0
+        c.skilling = 0
+        if c != variable.character_list[0]:
+            c.ultskilling = 0
         if i == 0:
             c.ATKlimit += c.ultskilling*5
             c.DEFlimit += c.ultskilling*3
@@ -3164,6 +3167,7 @@ class god_idol(pygame.sprite.Sprite):
             self.lighting = False
         if self.newgoal:
             self.goal = random.randint(variable.fr, variable.fr*3)
+            self.press = 0
             self.newgoal = False
         if mouse_one_press(0) and self.norect.collidepoint(mouse_location):
             flag.in_pray = False
