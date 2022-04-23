@@ -3216,6 +3216,7 @@ class bat_cha(pygame.sprite.Sprite):
                 flag.attack_choose = False
                 variable.work = 800
                 sprite.battle_font.h_update()
+                variable.myATKtype[sprite.act_information.act] = -1
             else:
                 if len(variable.myATKobject[sprite.act_information.act]) == 0:
                     variable.myATKobject[sprite.act_information.act].append(
@@ -3275,18 +3276,20 @@ class bat_ene(pygame.sprite.Sprite):
         if self.rect.collidepoint(mouse_location) and mouse_one_press(0):
             if not flag.attack_choose:
                 sprite.act_information.act = self.teamnum+3
-            elif variable.enemy[self.teamnum].nHP == 0 and (variable.equip_wp != [4, 2] or sprite.act_information.act != 0):
+            elif variable.enemy[self.teamnum].nHP == 0:
                 sprite.battle_font.situation = 2
                 sprite.battle_font.display = True
                 variable.work = 800
                 flag.attack_choose = False
                 sprite.battle_font.h_update()
+                variable.myATKtype[sprite.act_information.act] = -1
             elif sprite.act_information.perform.ATKtype == 4:
                 sprite.battle_font.situation = 5
                 sprite.battle_font.display = True
                 variable.work = 800
                 flag.attack_choose = False
                 sprite.battle_font.h_update()
+                variable.myATKtype[sprite.act_information.act] = -1
             else:
                 if len(variable.myATKobject[sprite.act_information.act]) == 0:
                     variable.myATKobject[sprite.act_information.act].append(
