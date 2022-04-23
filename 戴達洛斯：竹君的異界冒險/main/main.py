@@ -3552,7 +3552,7 @@ class a_inf(pygame.sprite.Sprite):
             if not self.havecalculate and not self.death_check():
                 if self.act <= 2:  # 我方
                     self.perform = variable.character_list[variable.usecha[self.act]]
-                    if self.perform.nHP != 0 and self.perform.dizz == 0:  # 還活著、沒暈眩
+                    if self.perform.nHP > 0 and self.perform.dizz == 0:  # 還活著、沒暈眩
                         # 數據處理
                         if self.moreene == -1:
                             self.obj = variable.myATKobject[self.act]
@@ -4114,7 +4114,7 @@ class a_inf(pygame.sprite.Sprite):
                     self.o_is_monster = False
                     self.perform = variable.enemy[self.act-3]
                     self.str1 = self.perform.type+' 使出 普通攻擊'
-                    if self.perform.nHP != 0 and self.perform.dizz == 0:  # 還活著、沒暈眩
+                    if self.perform.nHP > 0 and self.perform.dizz == 0:  # 還活著、沒暈眩
                         self.obj = variable.eneATKobject[self.act-3]
                         if self.perform.ATKtype == 1:  # 物理
                             tmpATK = self.perform.nATK
