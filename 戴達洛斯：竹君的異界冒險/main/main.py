@@ -125,7 +125,7 @@ class weapon(object):
         self.ATK = ATK
         self.DEFtype = DEFtype
         self.DEF = DEF
-        self.has = True
+        self.has = False
         self.str = Str
         self.ATKstr = 'ATK'
         self.DEFstr = 'DEF'
@@ -353,6 +353,7 @@ class character(object):
     def equip(self):
         r, c = variable.equip_wp
         ewp = variable.weapon_list[r][c]
+        sprite.act_information.w = ewp
         self.ATKtype = ewp.type
         try:
             sprite.act_information.wpSK = 0
@@ -1045,7 +1046,7 @@ bag_lp_font_3 = font_27_40_B.render("可於戰鬥中/角色介面使用", False,
 bag_exp_font_1 = font_27_80_B.render("經驗藥水", False, AZURU)
 bag_exp_font_1_w = bag_exp_font_1.get_width()
 bag_exp_font_1_h = bag_exp_font_1.get_height()
-bag_exp_font_2 = font_27_50.render("使用後提升全隊經驗值", False, BLACK)
+bag_exp_font_2 = font_27_50.render("使用後提升角色經驗值", False, BLACK)
 bag_exp_font_2_h = bag_exp_font_2.get_height()
 bag_exp_font_3 = font_27_40_B.render("可於角色介面使用", False, GRAY)
 bag_gi_font_1 = font_27_80_B.render("招募契約", False, SAND_BROWN)
@@ -3732,9 +3733,8 @@ class a_inf(pygame.sprite.Sprite):
                                                 str(antiatk)+' 點真實傷害'
                                 else:   # 群體
                                     self.moreene = 0
-                                    if self.moreene != len(self.obj):
-                                        o = self.obj[0]
-                                        self.obj.remove(o)
+                                    o = self.obj[0]
+                                    self.obj.remove(o)
                                     if o >= 3:
                                         o = variable.enemy[o-3]
                                         if o.type == '史萊姆':
@@ -3840,13 +3840,13 @@ class a_inf(pygame.sprite.Sprite):
                                     if o.nHP == 0:
                                         self.str2 += '，使其死亡'
                                         o.mock = 0
-                                        if self.act == 0:
+                                        if self.act == 0 and self.w.code == (4, 1):
                                             self.str2 += '，但竹君也被辣暈了'
                                             self.perform.dizz += 3
                                     elif self.act == 0 and self.w.code == (4, 1):
                                         o.burn += 5
                                         self.str2 += '，使其食道灼傷，造成【燃燒】效果，但竹君也被辣暈了'
-                                        self.perform.dizz += 2
+                                        self.perform.dizz += 3
                                     if self.o_is_monster:
                                         if o.type == '奧利哈鋼魔像' and o.dizz == 0 and o.nHP != 0:
                                             antiatk = max(
@@ -3858,9 +3858,8 @@ class a_inf(pygame.sprite.Sprite):
                                                 str(antiatk)+' 點真實傷害'
                                 else:   # 群體
                                     self.moreene = 0
-                                    if self.moreene != len(self.obj):
-                                        o = self.obj[0]
-                                        self.obj.remove(o)
+                                    o = self.obj[0]
+                                    self.obj.remove(o)
                                     if o >= 3:
                                         o = variable.enemy[o-3]
                                         self.str2 = '對 '+o.type+' 造成 '
@@ -4445,7 +4444,7 @@ class b_font(pygame.sprite.Sprite):
         self.font4_2rect = self.font4_2.get_rect()
         self.font4_2rect.center = (500, 360)
         self.font5 = font_27_80_B.render("請不要幫助敵人", False, STRONG_RED)
-        self.font5rect = self.font2.get_rect()
+        self.font5rect = self.font5.get_rect()
         self.font5rect.center = (500, 300)
         self.font6 = font_27_80_B.render("請確保全員都有選取到行動", False, LIGHT_KHAKI)
         self.font6rect = self.font6.get_rect()
