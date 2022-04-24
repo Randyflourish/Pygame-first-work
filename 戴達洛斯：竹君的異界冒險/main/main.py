@@ -353,7 +353,6 @@ class character(object):
     def equip(self):
         r, c = variable.equip_wp
         ewp = variable.weapon_list[r][c]
-        sprite.act_information.w = ewp
         self.ATKtype = ewp.type
         try:
             sprite.act_information.wpSK = 0
