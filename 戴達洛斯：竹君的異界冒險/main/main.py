@@ -125,7 +125,7 @@ class weapon(object):
         self.ATK = ATK
         self.DEFtype = DEFtype
         self.DEF = DEF
-        self.has = False
+        self.has = True
         self.str = Str
         self.ATKstr = 'ATK'
         self.DEFstr = 'DEF'
@@ -197,15 +197,11 @@ class variables(object):
         self.equip_wp = [0, 0]
 
     def character_init(self):
-        self.character_list.append(Mainc)
-        self.character_list.append(classleader)
-        self.character_list.append(secclassleader)
-        self.character_list.append(studentMP)
-        self.character_list.append(moneymanager)
-        for i in self.character_list:
-            i.LV0()
-        Mainc.LVup()
-        Mainc.SKCD = Mainc.oriSKCD
+        self.character_list.append(copy.copy(Mainc))
+        self.character_list.append(copy.copy(classleader))
+        self.character_list.append(copy.copy(secclassleader))
+        self.character_list.append(copy.copy(studentMP))
+        self.character_list.append(copy.copy(moneymanager))
 
 
 variable = variables()
@@ -377,35 +373,31 @@ class character(object):
 # 0
 Mainc = character("竹君", ATK=[0, 5, 9, 16, 26, 40], DEF=[0, 1, 3, 7, 11, 17], HP=[
     0, 30, 45, 70, 100, 140], SKCD=5, UPSKCD=4, ULTCD=20,  ATKtype=1, workstr='多功能')
-variable.character_list.append(Mainc)
 Mainc.LVup()
 Mainc.SKCD = Mainc.oriSKCD
 
 # 1
 classleader = character("班長", ATK=[0, 7, 15, 25, 45, 65], DEF=[0, 2, 4, 8, 12, 20], HP=[
     0, 30, 45, 65, 90, 135], SKCD=2, UPSKCD=2, ULTCD=7,  ATKtype=1, workstr='物理、輸出')
-variable.character_list.append(classleader)
 
 # 2
 secclassleader = character("副班長", ATK=[0, 3, 7, 10, 15, 20], DEF=[0, 3, 8, 12, 19, 26], HP=[
     0, 50, 75, 110, 150, 195], SKCD=4, UPSKCD=4, ULTCD=8,  ATKtype=1, workstr='物理、坦克')
-variable.character_list.append(secclassleader)
 
 # 3
 studentMP = character("學生議員", ATK=[0, 10, 23, 40, 60, 85], DEF=[0, 1, 2, 4, 7, 10], HP=[
     0, 20, 35, 50, 75, 100], SKCD=4, UPSKCD=3, ULTCD=10,  ATKtype=2, workstr='法術、輸出')
-variable.character_list.append(studentMP)
 
 # 4
 moneymanager = character("總務股長", ATK=[0, 4, 8, 13, 19, 27], DEF=[0, 1, 3, 6, 10, 15], HP=[
     0, 25, 45, 70, 95, 125], SKCD=4, UPSKCD=4, ULTCD=9,  ATKtype=4, workstr='回復、支援')
-variable.character_list.append(moneymanager)
 
 
 # 5 未實裝
 '''cornerperson = character("邊緣人", ATK=[0, 10, 23, 40, 60, 85], DEF=[0, 0, 0, 0, 0, 0], HP=[
     0, 25, 38, 55, 75, 100], SKCD=4, UPSKCD=3, ULTCD=9,  ATKtype=1)
 variable.character_list.append(cornerperson)'''
+
 
 # 角色技能與文字
 
@@ -436,6 +428,11 @@ def attack_str_set():
         ['總務股長 使出 戰技：班費資助‧改'], ['隨機使一名DEF<=15的隊友，防禦力大幅增加']]
     moneymanager.ultfont = [
         ['總務股長 使出 奧義：冷氣！！！'], ['回復全隊 ', ' 點血量，並給予【恢復】效果']]
+
+
+# 第一場初始化
+attack_str_set()
+variable.character_init()
 
 
 class monster(object):
@@ -3224,7 +3221,6 @@ class bat_cha(pygame.sprite.Sprite):
         if self.rect.collidepoint(mouse_location) and mouse_one_press(0):
             if not flag.attack_choose:
                 sprite.act_information.act = self.teamnum
-                # battle_large_image.h_update(照片)
             elif variable.character_list[variable.usecha[self.teamnum]].nHP == 0 and (variable.equip_wp != [4, 2] or sprite.act_information.act != 0):
                 sprite.battle_font.situation = 2
                 sprite.battle_font.display = True
@@ -4043,6 +4039,8 @@ class a_inf(pygame.sprite.Sprite):
                                     self.perform.ultskilling += 1
                                     self.perform.ULTCD = self.perform.oriULTCD+1
                                     self.perform.nHP += 5
+                                    self.perform.nHP = min(
+                                        self.perform.nHP, self.perform.HP[self.perform.level])
                                     self.perform.ATKlimit += 3
                                     self.perform.DEFlimit += 3
                                 else:
@@ -4814,7 +4812,6 @@ while flag.running:
     if flag.sprite_need_change:
         if flag.in_welcome:
             all_sprite = sprite_group.welcome_sprite.copy()
-            attack_str_set()
         elif flag.in_nobgift:
             all_sprite.empty()
             all_sprite.add(sprite.giftgain)
