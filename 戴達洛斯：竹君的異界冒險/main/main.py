@@ -85,6 +85,7 @@ class flags(object):
         self.in_wp_intro = False
         self.partner_font = False
         self.partner_up = False
+        self.in_batdet = False
 
 
 flag = flags()
@@ -878,6 +879,16 @@ botton_ring_img = pygame.image.load(os.path.join(
     "main", "image", "battle", "choose_ring.png")).convert_alpha()
 bat_font_img = pygame.image.load(os.path.join(
     "main", "image", "battle", "font.png")).convert_alpha()
+bat_poison_img = pygame.image.load(os.path.join(
+    "main", "image", "battle", "poison.png")).convert_alpha()
+bat_recover_img = pygame.image.load(os.path.join(
+    "main", "image", "battle", "recover.png")).convert_alpha()
+bat_burn_img = pygame.image.load(os.path.join(
+    "main", "image", "battle", "burn.png")).convert_alpha()
+bat_mock_img = pygame.image.load(os.path.join(
+    "main", "image", "battle", "shield.png")).convert_alpha()
+bat_det_img = pygame.image.load(os.path.join(
+    "main", "image", "battle", "det_block.png")).convert_alpha()
 recover_font_img = pygame.image.load(os.path.join(
     "main", "image", "battle", "recover_font.png")).convert_alpha()
 recover_font2_img = pygame.image.load(os.path.join(
@@ -3341,6 +3352,8 @@ def critical(character):
         return True
     return False
 
+# 行為
+
 
 class a_inf(pygame.sprite.Sprite):
     def __init__(self):
@@ -3548,6 +3561,10 @@ class a_inf(pygame.sprite.Sprite):
             self.HPfont = font_m_55.render(
                 str(self.perform.nHP)+'/'+str(self.perform.HP[self.perform.level]), False, WHITE)
             self.image.blit(self.HPfont, (850, 14))
+            if (self.detbotmrect.collidepoint(mouse_location) and mouse_one_press(0)):
+                flag.in_batdet = True
+                flag.sprite_need_change = True
+                sprite.battle_detail.h_update()
         else:
             if not self.havecalculate and not self.death_check():
                 if self.act <= 2:  # 我方
@@ -4355,7 +4372,53 @@ class a_inf(pygame.sprite.Sprite):
             return True
         return False
 
-# 戰鬥特效
+# 戰鬥異常狀態
+
+
+class bat_det(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = bat_det_img.copy()
+        self.rect = self.image.get_rect()
+        self.rect.center = (650, 400)
+        self.poison = bat_poison_img.copy()
+        self.burn = bat_burn_img.copy()
+        self.mock = bat_mock_img.copy()
+        self.recover = bat_recover_img.copy()
+        self.nr = self.poison.get_rect()
+        self.nr.topleft = (130, 50)
+
+    def update(self):
+        if sprite.act_information.perform.nHP == 0:
+            sprite.battle_font.situation = 2
+            sprite.battle_font.display = True
+            variable.work = 800
+            flag.in_batdet = False
+            sprite.battle_font.h_update()
+        else:
+            if mouse_one_press(0) or keyboard_one_press('any'):
+                flag.in_batdet = False
+                flag.sprite_need_change = True
+
+    def h_update(self):
+        self.image = bat_det_img.copy()
+        self.rect = self.image.get_rect()
+        self.rect.center = (650, 400)
+        self.perform = sprite.act_information.perform
+        self.nr.topleft = (130, 50)
+        if self.perform.recover != 0:
+            self.image.blit(self.recover, self.nr)
+            self.nr.topleft = (130, self.nr.top+125)
+        if self.perform.burn != 0:
+            self.image.blit(self.burn, self.nr)
+            self.nr.topleft = (130, self.nr.top+125)
+        if self.perform.mock != 0:
+            self.image.blit(self.mock, self.nr)
+            self.nr.topleft = (130, self.nr.top+125)
+        if self.perform.poison != 0:
+            self.image.blit(self.poison, self.nr)
+            self.nr.topleft = (130, self.nr.top+125)
+
 
 # 強制顯示文字欄
 
@@ -4624,6 +4687,7 @@ class sprites(object):
         self.tower_room_font_middle = tow_room_font_mid()
         self.chest = tow_chest()
         self.idol = god_idol()
+        self.battle_detail = bat_det()
         self.battle_character_0 = bat_cha(0)
         self.battle_character_1 = bat_cha(1)
         self.battle_character_2 = bat_cha(2)
@@ -4709,7 +4773,8 @@ flag.running = True  # flag：偵測是否要繼續遊戲
 
 
 # 測試區
-"""for i in range(1, 5):
+"""
+for i in range(1, 5):
     variable.character_list[i].LVup()
 variable.usecha = [0]
 sprite_group.battle_sprite.add(sprite.battle_character_1)
@@ -4799,6 +4864,10 @@ while flag.running:
             if flag.heal_cha:
                 all_sprite.empty()
                 all_sprite.add(sprite.battle_heal_font)
+                background_sprite = sprite_group.battle_sprite.copy()
+            elif flag.in_batdet:
+                all_sprite.empty()
+                all_sprite.add(sprite.battle_detail)
                 background_sprite = sprite_group.battle_sprite.copy()
             else:
                 all_sprite = sprite_group.battle_sprite.copy()
