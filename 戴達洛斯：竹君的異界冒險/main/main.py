@@ -1148,7 +1148,7 @@ class quit(pygame.sprite.Sprite):
         self.image.fill(HP_GREEN)
         self.rect = self.image.get_rect()
         self.rect.midtop = (750, 600)
-        self.font = font_27_80_B.render("退出程式", False, BLACK)
+        self.font = font_27_80_B.render("退出遊戲", False, BLACK)
         self.fontrect = self.font.get_rect()
         self.fontrect.center = (200, 75)
         self.image.blit(self.font, self.fontrect)
@@ -3084,7 +3084,7 @@ class tow_chest(pygame.sprite.Sprite):
         item, money = self.openchest()
         self.image = chestgain_img.copy()
         if item == 1:
-            r = Mainc.level
+            r = min(Mainc.level, 4)
             g = random.randint(0, len(variable.weapon_list[r])-1)
             self.image.blit(weapon_img[r][g], (250, 150))
             if variable.weapon_list[r][g].has:
@@ -3473,7 +3473,7 @@ class a_inf(pygame.sprite.Sprite):
                         variable.work = 800
                         sprite.battle_font.h_update()
                     else:
-                        if self.w.code != (4, 1):
+                        if self.w.code != (4, 1) or self.act != 0:
                             flag.attack_choose = True
                         if self.perform.name == '班長' and self.perform.skilling != 0:
                             flag.attack_choose = False
@@ -3690,7 +3690,6 @@ class a_inf(pygame.sprite.Sprite):
                                         else:
                                             cause_dmg = max(
                                                 int(cause_dmg*1.6), cause_dmg+1)
-
                                     if cause_dmg != 0:
                                         o.nHP -= cause_dmg
                                         self.str2 += str(cause_dmg) + \
