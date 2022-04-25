@@ -2616,6 +2616,7 @@ class gahca_ticket(pygame.sprite.Sprite):
         self.alpha = pygame.surface.Surface((150, 150), pygame.SRCALPHA)
         self.alpha.fill(BLACK)
         self.alpha.set_alpha(159)
+        self.counter = 0
 
     def update(self):
         if not self.in_control:
@@ -2634,7 +2635,7 @@ class gahca_ticket(pygame.sprite.Sprite):
             variable.haveitem['gi'] -= 1
             flag.in_gotcha = True
             flag.sprite_need_change = True
-        elif mouse_one_press(0):
+        elif mouse_one_press(0) and self.rect.collidepoint(mouse_location):
             self.in_control = True
             self.image = c_gachaitem_img.copy()
             self.rect = self.image.get_rect()
