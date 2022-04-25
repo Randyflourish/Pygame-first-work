@@ -354,6 +354,7 @@ class character(object):
         r, c = variable.equip_wp
         ewp = variable.weapon_list[r][c]
         self.ATKtype = ewp.type
+        variable.myATKtype[0] = -1
         try:
             sprite.act_information.wpSK = 0
         except:
@@ -3591,11 +3592,10 @@ class a_inf(pygame.sprite.Sprite):
                                     if self.perform.skillup:
                                         self.perform.ATKlimit += int(
                                             self.perform.ATK[self.perform.level]*1.5)
-                                    if random.randint(1, 50) <= 100:
-                                        self.obj = []
-                                        for i in range(len(variable.enemy)):
-                                            if variable.enemy[i].nHP != 0:
-                                                self.obj.append(i+3)
+                                    self.obj = []
+                                    for i in range(len(variable.enemy)):
+                                        if variable.enemy[i].nHP > 0:
+                                            self.obj.append(i+3)
                                 elif self.act == 0 and self.w.code == (3, 0):
                                     self.obj = []
                                     tmpobj = []
